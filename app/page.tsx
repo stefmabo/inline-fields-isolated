@@ -1,4 +1,4 @@
-import { FinancialInformationCard } from "@/containers/opportunityDetails/index";
+import { FinancialInformationCard } from "@/components/opportunityDetails/index";
 
 export default function Page() {
   return <FinancialInformationCard />;
