@@ -6,21 +6,17 @@ import { DateInput } from "./inputs/DateInput";
 import { SelectInput } from "./inputs/SelectInput";
 import { SearchInput } from "./inputs/SearchInput";
 
+const components: Record<string, React.ComponentType<InputProps>> = {
+  [FIELD_TYPES.Text]: TextInput,
+  [FIELD_TYPES.Currency]: CurrencyInput,
+  [FIELD_TYPES.Percentage]: PercentageInput,
+  [FIELD_TYPES.Date]: DateInput,
+  [FIELD_TYPES.Select]: SelectInput,
+  [FIELD_TYPES.Search]: SearchInput,
+};
+
 export const FieldFactory: React.FC<InputProps> = (props) => {
-  switch (props.type) {
-    case FIELD_TYPES.Text:
-      return <TextInput {...props} />;
-    case FIELD_TYPES.Currency:
-      return <CurrencyInput {...props} />;
-    case FIELD_TYPES.Percentage:
-      return <PercentageInput {...props} />;
-    case FIELD_TYPES.Date:
-      return <DateInput {...props} />;
-    case FIELD_TYPES.Select:
-      return <SelectInput {...props} />;
-    case FIELD_TYPES.Search:
-      return <SearchInput {...props} />;
-    default:
-      return <TextInput {...props} />;
-  }
+  const Component =
+    components[props.type as keyof typeof components] || TextInput;
+  return <Component {...props} />;
 };
