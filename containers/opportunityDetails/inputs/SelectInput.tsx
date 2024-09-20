@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { InputProps } from "./InputTypes";
+import { InputProps } from "../types";
 
 export const SelectInput: React.FC<InputProps> = ({
   value,

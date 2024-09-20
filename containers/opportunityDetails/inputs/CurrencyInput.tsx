@@ -1,6 +1,6 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
-import { InputProps } from "./InputTypes";
+import { InputProps } from "../types";
 
 export const CurrencyInput: React.FC<InputProps> = ({
   value,

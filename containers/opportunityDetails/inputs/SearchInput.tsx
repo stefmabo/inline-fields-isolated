@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
-import { InputProps } from "./InputTypes";
+import { InputProps } from "../types";
 
 export const SearchInput: React.FC<InputProps> = ({
   value,

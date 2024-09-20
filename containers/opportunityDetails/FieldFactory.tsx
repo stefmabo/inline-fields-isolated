@@ -1,10 +1,10 @@
 import React from "react";
-import { InputProps, FIELD_TYPES } from "./InputTypes";
-import { TextInput } from "./TextInput";
-import { CurrencyInput, PercentageInput } from "./CurrencyInput";
-import { DateInput } from "./DateInput";
-import { SelectInput } from "./SelectInput";
-import { SearchInput } from "./SearchInput";
+import { InputProps, FIELD_TYPES } from "./types";
+import { TextInput } from "./inputs/TextInput";
+import { CurrencyInput, PercentageInput } from "./inputs/CurrencyInput";
+import { DateInput } from "./inputs/DateInput";
+import { SelectInput } from "./inputs/SelectInput";
+import { SearchInput } from "./inputs/SearchInput";
 
 export const FieldFactory: React.FC<InputProps> = (props) => {
   switch (props.type) {

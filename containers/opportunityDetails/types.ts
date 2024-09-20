@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { FieldData } from "./types";
 
 export enum FieldType {
   Text = "text",
@@ -28,3 +29,10 @@ export interface FieldLayoutProps {
 export interface FinancialFieldProps extends FieldData {
   onChange: (value: string) => void;
 }
+export interface InputProps extends Partial<FieldData> {
+  value: string;
+  onChange: (value: string) => void;
+  onSave: () => void;
+}
+
+export const FIELD_TYPES = FieldType;

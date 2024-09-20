@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Calendar as CalendarIcon } from "lucide-react";
-import { InputProps } from "./InputTypes";
+import { InputProps } from "../types";
 
 export const DateInput: React.FC<InputProps> = ({
   value,

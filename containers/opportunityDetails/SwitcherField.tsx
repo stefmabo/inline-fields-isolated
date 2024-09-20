@@ -3,7 +3,7 @@ import cx from "classnames";
 import { FinancialFieldProps } from "./types";
 import { formatValue, useOutsideClick } from "./utils";
 import { Edit2 } from "lucide-react";
-import { FieldFactory } from "./inputs/FieldFactory";
+import { FieldFactory } from "./FieldFactory";
 
 export const SwitcherField: React.FC<FinancialFieldProps> = ({
   label,
