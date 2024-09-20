@@ -1,24 +1,9 @@
 import React, { useState, useCallback } from "react";
 import cx from "classnames";
-import { FinancialFieldProps, FieldType } from "./types";
+import { FinancialFieldProps } from "./types";
 import { formatValue, useOutsideClick } from "./utils";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Edit2, Search, Calendar as CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
+import { Edit2 } from "lucide-react";
+import { FieldFactory } from "./inputs/FieldFactory";
 
 export const SwitcherField: React.FC<FinancialFieldProps> = ({
   label,
@@ -52,97 +37,6 @@ export const SwitcherField: React.FC<FinancialFieldProps> = ({
 
   const ref = useOutsideClick(handleOutsideClick);
 
-  const renderInput = useCallback(() => {
-    switch (type) {
-      case FieldType.Date:
-        return (
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                className="w-full justify-start text-left font-normal"
-              >
-                {tempValue ? (
-                  format(new Date(tempValue), "PPP")
-                ) : (
-                  <span>Pick a date</span>
-                )}
-                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={tempValue ? new Date(tempValue) : undefined}
-                onSelect={(date) => {
-                  setTempValue(date ? date.toISOString() : "");
-                  handleSave();
-                }}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-        );
-      case FieldType.Select:
-        return (
-          <Select
-            value={tempValue}
-            onValueChange={(value) => {
-              setTempValue(value);
-              handleSave();
-            }}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select an option" />
-            </SelectTrigger>
-            <SelectContent>
-              {options?.map((option) => (
-                <SelectItem key={option} value={option}>
-                  {option}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        );
-      case FieldType.Search:
-        return (
-          <div className="relative">
-            <Input
-              type="text"
-              value={tempValue}
-              onChange={(e) => setTempValue(e.target.value)}
-              onBlur={handleSave}
-              className="w-full pl-10"
-              placeholder="Search..."
-            />
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-          </div>
-        );
-      case FieldType.Currency:
-      case FieldType.Percentage:
-        return (
-          <Input
-            type="number"
-            value={tempValue}
-            onChange={(e) => setTempValue(e.target.value)}
-            onBlur={handleSave}
-            className="w-full"
-            step="0.01"
-          />
-        );
-      default:
-        return (
-          <Input
-            type="text"
-            value={tempValue}
-            onChange={(e) => setTempValue(e.target.value)}
-            onBlur={handleSave}
-            className="w-full"
-          />
-        );
-    }
-  }, [type, tempValue, options, handleSave]);
-
   return (
     <div className="flex justify-between items-center gap-2">
       <div
@@ -167,7 +61,13 @@ export const SwitcherField: React.FC<FinancialFieldProps> = ({
           aria-label={editable ? `Edit ${label}` : undefined}
         >
           {isEditing ? (
-            renderInput()
+            <FieldFactory
+              type={type}
+              value={tempValue}
+              onChange={setTempValue}
+              onSave={handleSave}
+              options={options}
+            />
           ) : (
             <div className="text-lg flex items-center justify-between relative">
               <span
